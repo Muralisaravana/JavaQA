@@ -1,0 +1,116 @@
+What is a Stream?
+A Stream is a pipeline used to process collections (List, Set, Arrays) in a clean, readable, functional style.
+Streams are non-mutable
+
+Stream Components:
+A stream has 3 main parts:
+Source – The data
+Intermediate Operations – Transform/filter the data
+Terminal Operations – Produce the final result
+
+1. Stream Source:
+Stream is created from collections.
+Syntax:
+list.stream()
+set.stream()
+Arrays.stream(array)
+Stream.of("A", "B")
+
+Example:
+List<Integer> nums = List.of(1, 2, 3, 4);
+Stream<Integer> s = nums.stream();
+
+2. Intermediate Operations:
+These return a new stream.
+They don’t give final output directly.
+1) filter() → Keep only matching elements
+2) map() → Convert values
+3) sorted() → Sort
+4) distinct() → Remove duplicates
+5) limit() / skip() → Reduce stream size
+
+3. Terminal Operations
+These end the stream.
+Only one terminal operations allowed.
+
+forEach() – print/process each element
+collect() – convert back to List/Set
+count() – number of elements
+findFirst(), findAny()
+anyMatch(), allMatch(), noneMatch()
+reduce() – combine elements into one value
+
+| Component          | Purpose                | Returns    |
+| ------------------ | ---------------------- | ---------- |
+| **Source**         | Start of stream        | Stream     |
+| **filter()**       | Keep some values       | Stream     |
+| **map()**          | Transform values       | Stream     |
+| **sorted()**       | Sort values            | Stream     |
+| **distinct()**     | Remove duplicates      | Stream     |
+| **limit()/skip()** | Slice stream           | Stream     |
+| **forEach()**      | Final processing       | void       |
+| **collect()**      | Convert to list, set   | Collection |
+| **count()**        | Count items            | long       |
+| **reduce()**       | Reduce to single value | Optional   |
+
+Using IntStream:
+//Doubling Each number
+IntStream.of(1, 2, 3)
+         .map(n -> n * 2)
+         .forEach(System.out::println);
+//Int to Double
+IntStream.of(1, 2, 3)
+         .mapToDouble(n -> n * 2.5)
+         .forEach(System.out::println);
+
+CHARACTER OPERATIONS IN STREAMS:
+Java Streams do not directly support Stream<Character> from a string,
+but we can create it easily.
+
+Creating Character Stream:
+String name = "Murali";
+name.chars()
+    .mapToObj(c -> (char) c)
+    .forEach(System.out::println);
+
+Filter only vowels:
+String name = "Murali";
+name.chars()
+    .mapToObj(c -> (char) c)
+    .filter(ch -> "aeiouAEIOU".indexOf(ch) != -1)
+    .forEach(System.out::println); //u a i
+
+To UpperCase:
+name.chars()
+    .mapToObj(c -> (char) c)
+    .map(Character::toUpperCase)
+    .forEach(System.out::println);
+
+Sort Characters:
+name.chars()
+    .mapToObj(c -> (char) c)
+    .sorted()
+    .forEach(System.out::println);
+
+Remove space from sentence:
+String sentence = "M u r a l i";
+
+sentence.chars()
+    .mapToObj(c -> (char) c)
+    .filter(ch -> ch != ' ')
+    .forEach(System.out::println);
+
+Count Vowels:
+long count =
+    name.chars()
+        .mapToObj(c -> (char) c)
+        .filter(ch -> "aeiouAEIOU".contains(ch + ""))
+        .count();
+
+System.out.println(count);
+
+
+
+
+
+
