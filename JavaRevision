@@ -1,0 +1,176 @@
+What is OOPS?
+Object-Oriented Programming System is a programming paradigm based on the concept of objects, 
+which bundle data (variables) and behavior (methods) together.
+It helps build modular, reusable, and maintainable software.
+
+4 Main Concepts of OOPS:
+1.Class: A class is a blueprint or template.
+class Shoe {
+    String color;
+    int size;
+    void wear() {}
+}
+
+2.Object: An object is an actual implementation of the class — a real entity created from the blueprint.
+Shoe s1 = new Shoe();
+Shoe s2 = new Shoe();
+
+3.Encapsulation:Encapsulation means hiding internal details and exposing only what is necessary.
+class BankAccount {
+    private double balance;   // hidden
+
+    public void deposit(double amount) { balance += amount; }
+    public double getBalance() { return balance; }
+}
+
+4.Inheritance:Inheritance means one class acquires properties of another class.
+class Car {
+    void start() {}
+}
+class ElectricCar extends Car {
+    void charge() {}
+}
+5.Polymorphism:Polymorphism means same action, different behavior.
+Compile-time polymorphism (method overloading):
+void play(String song) {}
+void play(String song, int volume) {}
+
+Runtime polymorphism (method overriding):
+class Animal { void sound() {} }
+class Dog extends Animal { void sound() { System.out.println("Bark"); } }
+
+| OOPS Concept      | Meaning                         | Real World Analogy       |
+| ----------------- | ------------------------------- | ------------------------ |
+| **Class**         | Blueprint                       | Shoe design              |
+| **Object**        | Instance                        | The actual shoe you wear |
+| **Encapsulation** | Hiding internal details         | ATM card + PIN system    |
+| **Inheritance**   | Reuse parent features           | Car → ElectricCar        |
+| **Polymorphism**  | Same action, different behavior | Smartphone power button  |
+
+6.Abstraction:Showing only the essential features and hiding unnecessary internal details.
+
+
+2.Abstraction vs Encapsulation:
+Abstraction → Hiding internal implementation
+Focus on: WHAT the object does
+Ignore: HOW it does it
+
+Encapsulation → Hiding data
+Focus on: Protecting data by using getters/setters
+Bind data + behavior together
+
+| Feature        | Abstraction                  | Encapsulation                               |
+| -------------- | ---------------------------- | ------------------------------------------- |
+| Purpose        | Show only necessary details  | Protect data & bind together                |
+| Focus          | What to do                   | How to store & secure data                  |
+| Achieved using | Abstract classes, Interfaces | Classes, private variables, getters/setters |
+| Visibility     | Hides implementation         | Hides data                                  |
+
+3.Abstract Class vs Interface:
+Abstract class can have : Abstract methods,Non-abstract methods,Constructors,Variables (non-final),State (fields)
+When use abstract class? When subclasses share common behavior.
+
+Interface  can have : Abstract methods,Default methods,Static methods,Constants
+When use interface? When multiple classes must follow the same rule/contract.
+
+| Feature              | Abstract Class    | Interface                                   |
+| -------------------- | ----------------- | ------------------------------------------- |
+| Methods              | Abstract + normal | Abstract + default + static                 |
+| Variables            | Can be non-final  | Always `public static final`                |
+| Constructor          | Allowed           | Not allowed                                 |
+| Multiple inheritance | No                | Yes (a class can implement many interfaces) |
+| Use case             | Shared behavior   | Common contract                             |
+
+4.Why Java does not allow object creation for abstract class/interface?
+Abstract class → may contain unimplemented methods
+Interface → contains method declarations
+If object is created, calling these incomplete methods will cause runtime issues
+So Java prevents it at compile time.
+
+
+5.String, StringBuilder, and StringBuffer
+String is immutable — like a sealed chocolate.
+StringBuilder is mutable and fast — like an open jar anyone can modify.
+StringBuffer is mutable and thread-safe — like a jar with a lock.
+
+| Use Case                                                        | Use               |
+| --------------------------------------------------------------- | ----------------- |
+| You have constant text                                          | **String**        |
+| You need to build/modify text repeatedly (loops, concatenation) | **StringBuilder** |
+| Same as above but in multi-threaded environment                 | **StringBuffer**  |
+
+String Pool is a special memory area that stores string literals.
+String literals with same content point to the same object.
+String is immutable — this makes pooling possible.
+Strings created with new are stored in the Heap, not Pool.
+intern() is used to manually force a string into the pool.
+== compares references; equals() compares content.
+
+StringBuffer Methods
+
+StringBuffer has all the same methods as StringBuilder:
+StringBuilder sb = new StringBuilder("Hello");
+append() => sb.append(" World"); //Hello World
+insert() => sb.insert(5, " Java");//Hello Java
+replace() => sb.replace(6, 11, "Java"); // Hello World to Hello Java
+delete() => sb.delete(5, 9); //Hellova
+deleteCharAt() => sb.deleteCharAt(2); //abcde to abde
+reverse() => sb.reverse(); //World to dlroW
+capacity() => sb.capacity(); // 16 default
+ensureCapacity() => sb.ensureCapacity(50); //>=50
+length()=>sb.length() // returns length
+charAt()=> sb.charAt(1)) // returns 1st position value
+
+6.Exception Handling:
+Exception handling is a safety mechanism that protects your program from crashing when something goes wrong.
+It allows the program to continue safely instead of stopping abruptly.
+
+try {
+    // Code that may cause error
+}
+catch(Exception e) {
+    // Handle the error
+}
+finally {
+    // Always executed (even if error happens)
+}
+
+Types of Exceptions:
+Checked Exceptions - When interacting with external resources (file, DB, network)
+E.g.,
+FileNotFoundException
+IOException
+SQLException
+
+Unchecked Exceptions (Runtime Exceptions)-These errors occur while running the program.
+When user input is unpredictable
+When executing operations inside loops
+To prevent crashes due to bad input
+Examples:
+ArithmeticException (10/0)
+NullPointerException
+ArrayIndexOutOfBoundsException
+NumberFormatException
+
+Errors (Not Exceptions)
+These are system-level failures.
+Examples:
+OutOfMemoryError
+StackOverflowError
+➡ You should NOT handle errors.
+➡ Fix the cause instead (memory, recursion, etc.)
+
+| Keyword / Block | Meaning                 | Analogy                     | Where Used                  |
+| --------------- | ----------------------- | --------------------------- | --------------------------- |
+| **final**       | Cannot change           | Sealed bottle               | Variables, Methods, Classes |
+| **finally**     | Always runs             | ATM always returns card     | try-catch-finally           |
+| **finalize()**  | Cleanup before deletion | Shop cleanup before closing | Garbage Collector           |
+
+| Feature                        | `throw`                  | `throws`                     |
+| ------------------------------ | ------------------------ | ---------------------------- |
+| Purpose                        | Manually throw exception | Declare exception            |
+| Where used?                    | Inside method            | Method signature             |
+| Can throw multiple exceptions? | ❌ No (only one `throw`)  | ✔ Yes (`throws A, B, C...`)|
+| When executed?                 | During runtime           | During compilation (checked) |
+| Example                        | `throw new Exception();` | `void m() throws Exception`  |
+
