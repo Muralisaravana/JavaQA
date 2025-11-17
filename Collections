@@ -1,0 +1,122 @@
+1. List (Ordered, duplicates allowed)
+1) ArrayList
+Dynamic array, fast for reading, slow for insert/delete
+Use when: You need fast access & mostly read operations
+Syntax:
+List<String> list = new ArrayList<>();
+
+2) LinkedList
+Doubly linked list, fast insert/delete, slow access
+Use when: Frequent add/remove in middle
+Syntax:
+List<String> list = new LinkedList<>();
+
+3) Vector (Legacy)
+Synchronized ArrayList
+Use when: Thread-safe dynamic array needed
+Syntax:
+Vector<String> v = new Vector<>();
+
+4) Stack (Legacy)
+LIFO (Last In First Out)
+Use when: Use stack operations (push/pop)
+Syntax:
+Stack<Integer> st = new Stack<>();
+
+2. Set (No duplicates)
+1) HashSet
+No order, fast, unique elements
+Use when: Need unique items, order doesn’t matter
+Syntax:
+Set<String> set = new HashSet<>();
+
+2.LinkedHashSet
+Maintains insertion order
+Use when: Unique + preserve order
+Syntax:
+Set<String> set = new LinkedHashSet<>();
+
+3) TreeSet
+Sorted set (ascending), unique
+Use when: Need sorting + uniqueness
+Syntax:
+Set<String> set = new TreeSet<>();
+
+3. Queue (FIFO)
+1) PriorityQueue
+Elements ordered by priority (min-heap by default)
+Use when: Need highest/lowest priority element first
+Syntax:
+Queue<Integer> q = new PriorityQueue<>();
+
+2) LinkedList (as Queue)
+FIFO queue
+Use when: Simple queue operations
+Syntax:
+Queue<String> q = new LinkedList<>();
+
+3)ArrayDeque
+Faster than LinkedList for queue + stack
+Use when: Need both queue and stack behaviour
+Syntax:
+Deque<String> dq = new ArrayDeque<>();
+
+4. Map (Key–Value pairs)
+1) HashMap
+Fast, no order
+Use when: Key-value storage without order
+Syntax:
+Map<String, Integer> map = new HashMap<>();
+
+2) LinkedHashMap
+Maintains insertion order
+Use when: Need predictable iteration order
+Syntax:
+Map<String, Integer> map = new LinkedHashMap<>();
+
+| Need                     | Use           |
+| ------------------------ | ------------- |
+| Random access            | ArrayList     |
+| Fast insert/delete       | LinkedList    |
+| Unique items, no order   | HashSet       |
+| Unique + insertion order | LinkedHashSet |
+| Unique + sorted          | TreeSet       |
+| Key-value                | HashMap       |
+| Key-value + order        | LinkedHashMap |
+| Key-value + sorted       | TreeMap       |
+| Thread-safe List         | Vector        |
+| Thread-safe Map          | Hashtable     |
+| Priority-based queue     | PriorityQueue |
+| Fast queue/stack         | ArrayDeque    |
+
+
+| Collection    | Add Syntax                         | Remove Syntax                               |
+| ------------- | ---------------------------------- | ------------------------------------------- |
+| ArrayList     | `add()`                            | `remove()`, `remove(index)`                 |
+| LinkedList    | `add()`, `addFirst()`, `addLast()` | `remove()`, `removeFirst()`, `removeLast()` |
+| Vector        | `add()`                            | `remove()`                                  |
+| Stack         | `push()`                           | `pop()`                                     |
+| HashSet       | `add()`                            | `remove()`                                  |
+| LinkedHashSet | `add()`                            | `remove()`                                  |
+| TreeSet       | `add()`                            | `remove()`                                  |
+| PriorityQueue | `add()`, `offer()`                 | `remove()`, `poll()`                        |
+| ArrayDeque    | `add()`, `addFirst()`              | `remove()`, `removeFirst()`                 |
+| HashMap       | `put()`                            | `remove(key)`                               |
+| LinkedHashMap | `put()`                            | `remove(key)`                               |
+| TreeMap       | `put()`                            | `remove(key)`                               |
+| Hashtable     | `put()`                            | `remove(key)`                               |
+
+3) TreeMap
+Sorted by key (ascending)
+Use when: Need sorted map
+Syntax:
+Map<String, Integer> map = new TreeMap<>();
+
+4) Hashtable (Legacy)
+Thread-safe HashMap
+Use when: Need synchronized key-value store
+Syntax:
+Hashtable<String, Integer> ht = new Hashtable<>();
+
+
+
