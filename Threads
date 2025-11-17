@@ -1,0 +1,199 @@
+What is a Thread in Java?
+A Thread is like a small worker inside your program.
+Your program = factory
+Thread = worker who does a task
+Multi-threading = multiple workers doing tasks simultaneously
+
+Why do we need Threads?
+To do multiple tasks simultaneously
+To improve performance
+For background tasks (timers, schedulers, loggers)
+For handling multiple users (e.g., web servers)
+For parallel processing
+
+How to Create a Thread (2 Ways)
+1. Extending Thread class
+class MyThread extends Thread {
+    public void run() {
+        System.out.println("Thread is running");
+    }
+}
+
+MyThread t = new MyThread();
+t.start();
+
+2. Implementing Runnable interface
+class MyTask implements Runnable {
+    public void run() {
+        System.out.println("Thread working");
+    }
+}
+
+Thread t = new Thread(new MyTask());
+t.start();
+
+start() vs run()
+start() → creates a new thread
+run() → normal method call (NO new thread)
+
+Thread Lifecycle:
+NEW → RUNNABLE → RUNNING → BLOCKED/WAITING → TERMINATED
+
+1.NEW : Thread object created but NOT started.
+Thread t = new Thread();
+
+2.RUNNABLE:start() is called → thread is ready to run, waiting for CPU.
+
+3.RUNNING : Thread is actually executing run() method.
+
+4.BLOCKED / WAITING / SLEEPING:
+Thread is temporarily paused.
+Blocked: waiting to enter synchronized block
+Waiting: waiting for some other thread (notify/notifyAll)
+Sleeping: using Thread.sleep(ms)
+
+5.TERMINATED (DEAD):
+Thread completed execution or stopped.
+
+Lifecycle:
+NEW
+ ↓ start()
+RUNNABLE
+ ↓
+RUNNING
+ ↓  (sleep/wait/block)
+WAITING / BLOCKED
+ ↓
+RUNNING
+ ↓
+TERMINATED
+
+Important Thread Components :
+Thread class:To create and manage threads.
+Runnable interface:To provide the task for the thread.
+run() method:Defines what the thread will execute.
+start() method:Starts a new thread and calls run() internally.
+sleep():Temporarily pauses thread.
+join():One thread waits for another to finish.
+yield():Thread gives chance to other threads.
+synchronized:Used to avoid race conditions.
+wait(), notify(), notifyAll():Used for thread communication.
+
+| Feature                 | notify()                    | notifyAll()                               |
+| ----------------------- | --------------------------- | ----------------------------------------- |
+| Wakes up                | Only **one** waiting thread | **All** waiting threads                   |
+| Selection               | JVM randomly chooses        | All waiting threads are moved to Runnable |
+| Risk of missing wake-up | High                        | Low                                       |
+| Risk of deadlock        | Higher                      | Lower                                     |
+| Performance             | Better (less overhead)      | More overhead                             |
+
+
+| Feature        | `join()`                                       | `yield()`                        |
+| -------------- | ---------------------------------------------- | -------------------------------- |
+| Purpose        | Make one thread wait for another               | Give chance to other threads     |
+| Control        | Strong control                                 | Weak suggestion (JVM may ignore) |
+| Blocks Thread? | ✔ Yes                                          | ❌ No                           |
+| Used For       | Ordering tasks, dependencies                   | Avoiding CPU hogging             |
+| Behavior       | Current thread pauses until target thread ends | Scheduler may switch threads     |
+
+What is Race Condition? 
+A race condition happens when:
+Two or more threads->Access shared data at the same time->And the final result depends on who runs first
+If threads “race” to update the same value → unpredictable output.
+
+How to Fix a Race Condition?
+1.Use synchronized block or method
+synchronized(this) {
+    count++;
+}
+2. Use Atomic Variables : Thread-safe and no locking needed
+AtomicInteger count = new AtomicInteger(0);
+count.incrementAndGet();
+3. Use Lock (ReentrantLock)
+lock.lock();
+try {
+    count++;
+} finally {
+    lock.unlock();
+}
+4. Avoid shared mutable state
+Design threads to use local copies or immutable data.
+
+Starvation:
+A thread never gets a chance to run
+Because other threads keep taking the CPU or lock
+The starving thread is ALIVE, but never scheduled
+
+Livelock:
+Threads are RUNNING but making NO progress
+They keep reacting to each other
+They are “alive” but “stuck”
+Avoid Fairlock:
+Lock lock = new ReentrantLock(true); // fair lock
+
+Avoid Deadlock:
+Use consistent lock ordering:
+synchronized(lock1) {
+    synchronized(lock2) {
+
+Use trylock:
+if (lock1.tryLock(1000, TimeUnit.MILLISECONDS)) {
+    if (lock2.tryLock(1000, TimeUnit.MILLISECONDS)) {
+        // safe
+    }
+
+Producer-Consumer example:
+class SharedBuffer {
+    private int item;
+    private boolean hasItem = false;   // buffer empty initially
+
+    public synchronized void produce(int value) throws InterruptedException {
+        while (hasItem) {          // buffer is full
+            wait();                // release lock & wait
+        }
+        item = value;
+        System.out.println("Produced: " + item);
+        hasItem = true;
+        notify();                  // wake consumer
+    }
+
+    public synchronized void consume() throws InterruptedException {
+        while (!hasItem) {         // buffer empty
+            wait();                // release lock & wait
+        }
+        System.out.println("Consumed: " + item);
+        hasItem = false;
+        notify();                  // wake producer
+    }
+}
+
+}
+
+public class ProducerConsumerExample {
+    public static void main(String[] args) {
+
+        SharedBuffer buffer = new SharedBuffer();
+
+        Thread producer = new Thread(() -> {
+            for (int i = 1; i <= 5; i++) {
+                try { buffer.produce(i); }
+                catch (Exception e) { }
+            }
+        });
+
+        Thread consumer = new Thread(() -> {
+            for (int i = 1; i <= 5; i++) {
+                try { buffer.consume(); }
+                catch (Exception e) { }
+            }
+        });
+
+        producer.start();
+        consumer.start();
+    }
+}
+
+
+Synchronized means only one thread executes a block/method at a time (safe but slow).
+Asynchronous means multiple threads run independently without waiting (fast but unsafe unless controlled).
+
