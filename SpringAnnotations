@@ -1,0 +1,73 @@
+Spring Core:
+@Component → Marks a class as bean
+@Service → Business logic layer bean
+@Repository → DAO bean, exception translation
+@Controller → Web MVC controller
+@RestController → Controller + @ResponseBody
+@Autowired → Dependency injection
+@Qualifier → Choose between multiple beans
+@Bean → Create a bean inside config class
+@Configuration → Java config file
+@Value → Read value from application.properties
+@ComponentScan → Scans packages for beans
+@Lazy -> Bean gets created only when needed.
+
+Spring Boot Core:
+@SpringBootApplication → Combines @Configuration, @EnableAutoConfiguration, @ComponentScan
+@EnableAutoConfiguration → Auto config beans based on classpath
+@ConfigurationProperties → Map properties to Java class
+CommandLineRunner → Run code at startup
+ApplicationRunner → Alternative to CommandLineRunner
+@Profile → Run beans for specific environments (dev, prod)
+@ConditionalOnMissingBean → Create bean only if missing
+@ConditionalOnProperty → Create bean based on property
+
+Spring MVC:
+@GetMapping → Handle GET request
+@PostMapping → Handle POST request
+@PutMapping → Handle PUT request
+@DeleteMapping → Handle DELETE request
+@RequestMapping → Generic mapping
+@PathVariable → Read from URL path
+@RequestParam → Read query params
+@RequestBody → Read JSON body
+@ResponseBody → Return JSON
+@ModelAttribute → Bind form data
+@CrossOrigin → Enable CORS
+@ExceptionHandler → Handle specific exceptions
+@ControllerAdvice → Global exception handling
+
+Spring Data JPA:
+@Entity → Database table
+@Table → Custom table name
+@Id → Primary key
+@GeneratedValue → Auto ID
+@Column → Map column
+@OneToOne, @OneToMany, @ManyToOne, @ManyToMany → Relationships
+@JoinColumn → Foreign key
+@Transactional → Open transaction
+@EnableJpaRepositories → Enable JPA repos
+JpaRepository → CRUD + pagination + sorting
+
+Spring Security
+@EnableWebSecurity → Enable security config
+@BeanSecurityFilterChain → Core configuration in Spring Security 6+
+@PreAuthorize → Method-level authorization
+@PostAuthorize → After method execution authorization
+@EnableMethodSecurity → Enable method-level security
+@AuthenticationPrincipal → Get logged-in user
+UserDetailsService → Load user from DB
+PasswordEncoder → Hash passwords
+@CrossOrigin (CORS) → Allow frontend domains
+CORS->Allow frontend domains to call backend.
+
+JWT filters (Custom):
+OncePerRequestFilter → For JWT
+AuthenticationEntryPoint → Handle unauthorized
+
+TRANSACTIONS (Spring @Transactional)
+@Transactional	->Makes method run inside a transaction.
+Rollback	->Occurs automatically on RuntimeException.
+propagation=REQUIRED->	Join existing transaction or create new.
+propagation=REQUIRES_NEW->	Always create new transaction.
+Isolation level	->Controls how concurrent DB reads/writes behave.
