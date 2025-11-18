@@ -36,6 +36,7 @@ Spring MVC:
 @CrossOrigin → Enable CORS
 @ExceptionHandler → Handle specific exceptions
 @ControllerAdvice → Global exception handling
+@ResponseEntity → Custom status + headers + body
 
 Spring Data JPA:
 @Entity → Database table
@@ -48,6 +49,9 @@ Spring Data JPA:
 @Transactional → Open transaction
 @EnableJpaRepositories → Enable JPA repos
 JpaRepository → CRUD + pagination + sorting
+@Query → Custom JPQL or SQL
+Paging → Pageable, Sorting → Sort
+Derived queries → findByName(), findByEmailAndStatus()
 
 Spring Security
 @EnableWebSecurity → Enable security config
@@ -71,3 +75,9 @@ Rollback	->Occurs automatically on RuntimeException.
 propagation=REQUIRED->	Join existing transaction or create new.
 propagation=REQUIRES_NEW->	Always create new transaction.
 Isolation level	->Controls how concurrent DB reads/writes behave.
+
+CONCURRENCY (Spring)
+@Async → Run method in background thread
+@EnableAsync → Enable async execution
+Use ExecutorService for custom thread pools
+@Scheduled → Cron/interval scheduled tasks
