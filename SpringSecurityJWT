@@ -1,0 +1,25 @@
+User logs in (credentials → /api/auth/login)
+1.Client sends username/password.
+2.Server authenticates credentials (DB/UserDetailsService).
+3.If OK → server generates JWT (signed, contains username, expiration, roles).
+4.Server returns JWT to client (usually in JSON body).
+{ "token": "eyJhbGciOi..." }
+5.Client stores token (in-memory, secure cookie with HttpOnly/secure, or localStorage — each has tradeoffs).
+6.Client sends token on subsequent requests in Authorization header:
+Authorization: Bearer <jwt>
+7.Server receives request, extracts token from header (or cookie), validates it:
+8.Verify signature (using secret/public key)
+Check exp (not expired)
+Optionally check iat, nbf, issuer (iss), audience (aud)
+Optionally check token is not revoked / blacklisted
+9.If valid → server sets SecurityContext / user principal and processes request as authenticated user.
+10.If invalid/expired → return 401 Unauthorized. If using refresh tokens, client can call refresh endpoint to obtain a new access token.
+
+Token validation details (server-side)
+Extract token from Authorization header or cookie.
+Parse header+payload, verify signature using secret (HMAC) or public key (RSA/ECDSA).
+Confirm exp > now (not expired).
+Optionally check: nbf (not before), iss (issuer), aud (audience), scope/roles.
+Optionally check revocation (blacklist/store of invalidated tokens) or token version in DB.
+
+If everything OK → user is authenticated.
