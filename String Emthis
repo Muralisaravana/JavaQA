@@ -1,0 +1,28 @@
+Java String Methods:
+length() - Returns number of characters. Example: "Hello".length() -> 5
+charAt(int index) - Returns character at position. Example: "Java".charAt(2) -> 'v'
+indexOf(String) - First position of substring. Example: "apple".indexOf("p") -> 1
+lastIndexOf(String) - Last position of substring. Example: "apple".lastIndexOf("p") -> 2
+contains(String) - Checks substring existence. Example: "hello".contains("ell") -> true
+startsWith(String) - Checks start characters. Example: "java".startsWith("ja") -> true
+endsWith(String) - Checks end characters. Example: "test.java".endsWith(".java") -> true
+equals(String) - Case-sensitive comparison. Example: "Hi".equals("hi") -> false
+equalsIgnoreCase(String) - Case-insensitive comparison. Example: "Hi".equalsIgnoreCase("hi") -> true
+compareTo(String) - Lexical comparison. Example: "a".compareTo("b") -> -1
+toLowerCase() - Lowercase conversion. Example: "Hi".toLowerCase() -> "hi"
+toUpperCase() - Uppercase conversion. Example: "abc".toUpperCase() -> "ABC"
+trim() - Remove leading & trailing spaces. Example: " hi ".trim() -> "hi"
+replace(old,new) - Replace substring. Example: "a-b-c".replace("-", "") -> "abc"
+replaceAll(regex,new) - Replace regex matches. Example: "a1b2".replaceAll("\\d","") -> "ab"
+split(String) - Split into array. Example: "a,b,c".split(",") -> ["a","b","c"]
+substring(int begin) - Extract substring. Example: "murali".substring(3) -> "ali"
+substring(int begin,int end) - Extract range. Example: "murali".substring(1,4) -> "ura"
+matches(regex) - Full regex match. Example: "123".matches("\\d+") -> true
+repeat(n) - Repeat string. Example: "ha".repeat(3) -> "hahaha"
+concat(String) - Join strings. Example: "Hello".concat("World") -> HelloWorld
+format(String,...) - Formatted string. Example: String.format("Hi %s", "Murali") -> Hi Murali
+compareToIgnoreCase() - Compare ignoring case. Example: "A".compareToIgnoreCase("a") -> 0
+replaceFirst(regex,new) - Replace first match. Example: "111".replaceFirst("1","X") -> X11
+toCharArray() - Convert to char array. Example: "java".toCharArray() -> ['j','a','v','a']
+valueOf(x) - Convert type to String. Example: String.valueOf(100) -> "100"
+getBytes() - Convert to byte array. Example: "abc".getBytes()
